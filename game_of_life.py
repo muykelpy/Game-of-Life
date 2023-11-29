@@ -3,7 +3,6 @@
 # This project is due by Nov. 30 at 11:59pm.
 # Follow the instructions for Steps 1–10 below. Upload your file to Brightspace when it is complete.
 
-
 import time
 import random
 from graphics import *
@@ -35,8 +34,8 @@ def populate(grid, prob):
     # On the blank line below, write a for statement that iterates variable r over the range specified by rows. (Note: rows is already defined above.)
     # Note: Make sure that the statement is properly indented. Your first for statement should line up with the hashtag at the beginning of this line.
     # Then write an inner loop that iterates variable c over the range specified by cols. (Note: cols is already defined above.)
-    
-        
+    for r in range(rows):
+        for c in range(cols):
             if random.random() <= prob:
                 grid[r][c] = '*'
             else:
@@ -46,24 +45,23 @@ def populate(grid, prob):
 
 def neighbors(grid, row, column):
     total = 0
-    
     height = len(grid)
     width = len(grid[0])
 ## Step 2 & 3: for loop syntax cont.
     # On the line below, write a for statement that iterates variable x over the range between row minus one and row plus 2.
     # Then write an inner loop that iterates variable y over the range between column minus one and column plus 2.
     # Note: make sure that your first for statement is properly indented. It should align with the hashtag at the beginning of this line.
-    
-        
+    for x in range(row-1, row+2):
+        for y in range(column-1, column+2):
             ## On the blank line below, write a statement that specifies the following:
             ## if x is less-than zero OR x is greater-than-or-equal-to height OR y is less than zero OR y is greater-than-or-equal-to width then:
             ## Note: your statement should align with the hashtag at the beginning of this line.
-            
+            if((x < 0) or (x >= height) or (y < 0) or (y >= width)):
                 continue
             ## On the blank line below, write a statement that specifies the following:
             ## If x is equal to row AND y is equal to column then:
             ## Note: your statement should align with the hashtag at the beginning of this line.
-            
+            if((x == row) and (y == column)):
                 continue
             if grid[x][y] == '*':
                 total += 1
@@ -82,8 +80,8 @@ def evolve(grid):
     # On the blank line below, write a for statement that iterates variable r over the range specified by rows. (Note: rows is already defined above.)
     # Note: Make sure that the statement is properly indented. Your first for statement should line up with the hashtag at the beginning of this line.
     # Then write an inner loop that iterates variable c over the range specified by cols. (Note: cols is already defined above.)   
-    
-        
+    for r in range(rows):
+        for c in range(cols):
             n = neighbors(grid, r, c)
             if grid[r][c] == '*':
                 # Write a statement that specifies if n is equal to two OR is equal to three, then:
@@ -119,8 +117,8 @@ def create_grid_visual(rows, cols, window):
     # On the blank line below, write a for statement that iterates variable r over the range specified by rows. (Note: rows is already defined above.)
     # Note: Make sure that the statement is properly indented. Your first for statement should line up with the hashtag at the beginning of this line.
     # Then write an inner loop that iterates variable c over the range specified by cols. (Note: cols is already defined above.)
-    
-        
+    for r in range(rows):
+        for c in range(cols):
            grid_visual[r][c] = Rectangle(Point(c*p_w, r*p_h), Point((c+1)*p_w, (r+1)*p_h))
            grid_visual[r][c].setFill(color_rgb(0,0,0))
            grid_visual[r][c].draw(window)
@@ -136,12 +134,12 @@ def mirror(grid, grid_visual):
     # On the line below, write a for statement that iterates variable r over the range specified by rows. (Note: rows is already defined above.)
     # Note: Make sure that the statement is properly indented. Your first for statement should line up with the hashtag at the beginning of this line.
     # Then write an inner loop that iterates variable c over the range specified by cols. (Note: cols is already defined above.)
-    
-        
+    for r in range(rows):
+        for c in range(cols):
             if grid[r][c] == '*':
 ## Step 9: The line below specifies the color of your living cells.
 ##         Manipulate the R,G,B values so that your living cells are purple.
-                grid_visual[r][c].setFill(color_rgb(0,255,0)) # This starting color is green. What are the R,G,B values for purple?
+                grid_visual[r][c].setFill(color_rgb(128,0,128)) # This starting color is green. What are the R,G,B values for purple?
             else:
                 grid_visual[r][c].setFill(color_rgb(0,0,0))
                 
@@ -149,7 +147,7 @@ def mirror(grid, grid_visual):
 window = GraphWin('Game of Life', 500, 500, autoflush=False)
 grid = create_grid(50,50)
 grid_visual = create_grid_visual(50,50,window)
-populate(grid,0.5)
+populate(grid,0.3)
 ## Step 10: The line above sets the initial state of the game.
 #          This function tells Python to populate grid in such a way that each call has a 50% chance
 #          of being alive in the initial state. Run the program and make a note to yourself about the
